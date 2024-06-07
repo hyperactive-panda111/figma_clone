@@ -1,6 +1,5 @@
 import CursorSVG from '@/public/assets/CursorSVG'
 import { CursorChatProps, CursorMode } from '@/types/type'
-import React from 'react'
 
 const CursorChat = ({ cursor, cursorState, setCursorState, updateMyPresence}: CursorChatProps) => {
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -35,7 +34,7 @@ const CursorChat = ({ cursor, cursorState, setCursorState, updateMyPresence}: Cu
 
           <div className='absolute left-2 top-5
             bg-blue-500 px-4 py-2 text-sm leading-relaxed
-            text-white rounded=[20px]'>
+            text-white rounded-[20px]'>
               {cursorState.previousMessage && (
                 <div>{cursorState.previousMessage}</div>
               )}
