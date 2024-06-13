@@ -15,6 +15,7 @@ import { handleDelete, handleKeyDown } from '@/lib/key-events';
 import { handleImageUpload } from '@/lib/shapes';
 
 
+
 export default function Page() {
 const undo = useUndo();
 const redo = useRedo();
@@ -86,7 +87,7 @@ const redo = useRedo();
         deleteAllShapes();
         fabricRef.current?.clear();
         setActiveElement(defaultNavElement);
-        break;
+        break;      
       
       case 'delete':
         handleDelete(fabricRef.current as any,
@@ -116,10 +117,10 @@ const redo = useRedo();
     canvas.on('mouse:down', (options) => {
       handleCanvasMouseDown({
         options,
-      canvas,
-      isDrawing,
-      shapeRef,
-      selectedShapeRef,
+        canvas,
+        isDrawing,
+        shapeRef,
+        selectedShapeRef,
       })
     });
 
@@ -134,7 +135,7 @@ const redo = useRedo();
       })
     });
 
-    canvas.on('mouse:up', (options: any) => {
+    canvas.on('mouse:up', () => {
       handleCanvasMouseUp({
       canvas,
       isDrawing,
@@ -168,6 +169,7 @@ const redo = useRedo();
     })
 
     window.addEventListener('resize', () => {
+      //@ts-ignore
     handleResize({fabricRef})
   })
 
@@ -194,6 +196,7 @@ const redo = useRedo();
       activeObjectRef,
     });
   }, [canvasObjects]);
+
   return (
     <main className="h-screen overflow-hidden">
       <Navbar 

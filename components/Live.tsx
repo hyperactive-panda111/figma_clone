@@ -7,6 +7,7 @@ import ReactionSelector from './reaction/ReactionButton';
 import FlyingReaction from './reaction/FlyingReaction';
 import useInterval from '@/hooks/useInterval';
 import { Comments } from './comments/Comments';
+ 
 
 
 
@@ -21,19 +22,19 @@ const Live = ({canvasRef}: Props) => {
     mode: CursorMode.Hidden,
   })
 
-  const [reaction, setReaction] = useState<Reaction[]>([]);
+  const [reactions, setReactions] = useState<Reaction[]>([]);
 
   const broadcast = useBroadcastEvent();
 
   useInterval(() => {
-    setReaction((reaction) => reaction.filter((r) => r.
+    setReactions((reactions) => reactions.filter((r) => r.
     timestamp > Date.now() - 4000))
   }, 1000);
 
   useInterval(() => {
     if (cursor && cursorState.mode === CursorMode.Reaction
       && cursorState.isPressed) {
-        setReaction((reactions) => reactions.concat([{
+        setReactions((reactions) => reactions.concat([{
           point: {x: cursor.x, y: cursor.y},
           value: cursorState.reaction,
           timestamp: Date.now(),
@@ -50,7 +51,7 @@ const Live = ({canvasRef}: Props) => {
   useEventListener((eventData) => {
     const event = eventData.event as ReactionEvent;
 
-    setReaction((reactions) => reactions.concat([{
+    setReactions((reactions) => reactions.concat([{
       point: {x: event.x, y: event.y},
       value: event.value,
       timestamp: Date.now(),
@@ -85,9 +86,8 @@ const Live = ({canvasRef}: Props) => {
 
     updateMyPresence({ cursor: { x, y }});
 
-    setCursorState((state: CursorState) => 
-    cursorState.mode === CursorMode.Reaction ?
-     { ...state, isPressed: true} : state)
+    setCursorState((state: CursorState) => cursorState.mode === CursorMode.Reaction 
+    ? { ...state, isPressed: true} : state)
   }, [cursorState.mode, setCursorState]);
 
   const handlePointerUp = useCallback(
@@ -129,7 +129,7 @@ const Live = ({canvasRef}: Props) => {
 
   }, [updateMyPresence]);
 
-  const setReactions = useCallback((reaction: string) => {
+  const setReaction = useCallback((reaction: string) => {
     setCursorState({
       mode: CursorMode.Reaction,
       reaction,
@@ -147,7 +147,7 @@ const Live = ({canvasRef}: Props) => {
      className='relative h-full flex flex-1 w-full justify-center items-center'>
       <canvas ref={canvasRef}/>
 
-      {reaction.map((r) => (
+      {reactions.map((r) => (
         <FlyingReaction  
           key={r.timestamp.toString()}
           x={r.point.x}
@@ -169,11 +169,11 @@ const Live = ({canvasRef}: Props) => {
       {cursorState.mode === CursorMode.ReactionSelector 
        && (
         <ReactionSelector 
-          setReaction={setReactions}
+          setReaction={setReaction}
         />
        )}
         <LiveCursors others={others}/>
-        <Comments/> 
+        <Comments />
     </div>
   )
 }

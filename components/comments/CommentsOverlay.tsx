@@ -5,8 +5,8 @@ import { ThreadData } from "@liveblocks/client";
 
 import { ThreadMetadata, useEditThreadMetadata, useThreads, useUser } from "@/liveblocks.config";
 import { useMaxZIndex } from "@/lib/useMaxZIndex";
-import { PinnedThread } from "./PinnedThread";
 
+import { PinnedThread } from "./PinnedThread";
 
 type OverlayThreadProps = {
   thread: ThreadData<ThreadMetadata>;

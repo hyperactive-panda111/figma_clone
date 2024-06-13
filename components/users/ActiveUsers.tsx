@@ -2,17 +2,18 @@ import { useOthers, useSelf } from "@/liveblocks.config";
 import { Avatar } from "./Avatar";
 
 import styles from './index.module.css'; 
+
 import { useMemo } from "react";
 import { generateRandomName } from "@/lib/utils";
 
-    const ActiveUsers = () => {
-    const users = useOthers();
-    const currentUser = useSelf();
+const ActiveUsers = () => {
+  const users = useOthers();
+  const currentUser = useSelf();
     const hasMoreUsers = users.length > 3;
     
      const memoizedUsers = useMemo(() => {
       return (
-        <div className="flex items-center justify-center 
+        <main className="flex items-center justify-center 
         gap-1 py-2">
           <div className='flex pl-3'>
         {currentUser && (
@@ -27,11 +28,11 @@ import { generateRandomName } from "@/lib/utils";
   
           {hasMoreUsers && <div className={styles.more}>+{users.length - 3}</div>}
           </div>
-        </div>
+        </main>
       )
     }, [users.length]);
 
-    return memoizedUsers;
+  return memoizedUsers;
   }
 
   export default ActiveUsers;
