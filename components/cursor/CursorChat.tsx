@@ -15,6 +15,7 @@ const CursorChat = ({ cursor, cursorState, setCursorState, updateMyPresence}: Cu
     if (e.key === 'Enter') {
       setCursorState({
         mode: CursorMode.Chat,
+        // @ts-ignore
         previousMessage: cursorState.message,
         message: '',
        })
